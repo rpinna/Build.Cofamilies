@@ -1,0 +1,81 @@
+<Project DefaultTargets="Usage"
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <!-- Import Tasks -->
+
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+
+  <!-- Define Project Properties -->
+  
+  <PropertyGroup>
+    <WebRoot>Export\WebUI.Cofamilies</WebRoot>
+    <FtpClient>C:\WinSCP\WinSCP.exe</FtpClient>
+    <ProjectName>Cofamilies</ProjectName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ZipFileName>$(ProjectName).zip</ZipFileName>
+    <!-- <GitFlags>-b production - -</GitFlags> -->
+    <GitFlags></GitFlags>
+  </PropertyGroup>
+
+  <!-- Items -->
+  
+  <ItemGroup>
+    <ZipFiles Include="Export\Cofamilies\WebApplication\WebUI.Cofamilies\**\*.*" Exclude="*.zip;**\obj\**;**\.svn\**;**\Logfile*.txt" />
+  </ItemGroup>
+  
+  <!-- Targets -->
+  
+  <Target Name="Usage">
+    <Message Text=" " />
+    <Message Text="Targets: BuildRelease, Deploy, BuildAndDeploy" />
+  </Target>
+  
+  <Target Name="Paths">
+    <Message Text=" " />
+    <Message Text="MSBuild Extensions Path: $(MSBuildExtensionsPath)" />
+  </Target>  
+
+  <Target Name="Zip">
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\Zip" />
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Zip" />
+    <Zip Files="@(ZipFiles)" WorkingDirectory="Export\Cofamilies\WebApplication\WebUI.Cofamilies\" ZipFileName="$(MSBuildProjectDirectory)\Zip\$(ZipFileName)"/>
+  </Target>
+
+  <Target Name="Upload">
+    <Exec Command="$(FtpClient) /script=FtpDeployment.config /parameter $(ZipFileName) /log=FtpLog-TODODateString.txt" />  
+  </Target>
+
+  <Target Name = "Deploy" DependsOnTargets = "Zip; Upload" />
+  
+  <Target Name="Export">
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\Export" />
+    
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Export\Cofamilies" />
+    <Exec Command="git clone $(GitFlags) git@github.com:rpinna/Cofamilies.git $(MSBuildProjectDirectory)\Export\Cofamilies\" />
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\Export\Cofamilies\.git" />
+
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Export\Rob" />
+    <Exec Command="git clone $(GitFlags) git@github.com:rpinna/Rob.git $(MSBuildProjectDirectory)\Export\Rob\" />
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\Export\Rob\.git" />
+
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Export\Lib" />
+    <Exec Command="git clone $(GitFlags) git@github.com:rpinna/Lib.git $(MSBuildProjectDirectory)\Export\Lib\" />
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\Export\Lib\.git" />
+  </Target>  
+  
+  <Target Name="Release">
+    <MSBuild Projects = "Export\Cofamilies\WebApplication\CofamiliesWeb.sln" Properties="Configuration=Release" />
+  </Target>
+  
+  <Target Name="Debug">
+    <MSBuild Projects = "Export\Cofamilies\WebApplication\CofamiliesWeb.sln" Properties="Configuration=Debug" />
+  </Target>
+  
+  <Target Name="BuildRelease" DependsOnTargets = "Export; Release" />
+  <Target Name="BuildAndDeploy" DependsOnTargets="BuildRelease; Deploy" />  
+
+</Project>
+
+
