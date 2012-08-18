@@ -22,14 +22,14 @@
   </PropertyGroup>
   
   <Choose>
-    <When Condition=" '$(Branch)' == 'Master' ">
+    <When Condition=" '$(Branch)' == 'master' ">
       <PropertyGroup>
         <GitFlags></GitFlags>
       </PropertyGroup>
       </When>
-      <When Condition=" '$(Branch)' == 'Production' ">
+      <When Condition=" '$(Branch)' != 'master' ">
         <PropertyGroup>
-          <GitFlags>-b production --</GitFlags>
+          <GitFlags>-b $(Branch) --</GitFlags>
         </PropertyGroup>
       </When>
   </Choose>
