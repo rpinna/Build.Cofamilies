@@ -1,6 +1,6 @@
 @echo off
 if  "%1"==""  goto NoParameter
-echo Switching to branch %1
+echo Switching to branch %1 via git checkout...
 echo Lib, Rob, CofamiliesJS, Cofamilies, and Build.Cofamilies...
 
 cd Lib
@@ -34,5 +34,10 @@ echo Done!
 
 goto End
 :NoParameter
-echo Usage: switch-branch branchname
+echo.
+echo Usage: checkout-branch branchname
+echo.
+echo checkout-branch does a git checkout for the specified branch
+echo in each of the directories (repos) used to build cofamilies
+echo.
 :End
