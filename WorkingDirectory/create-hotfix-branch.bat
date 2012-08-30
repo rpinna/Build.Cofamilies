@@ -64,4 +64,5 @@ echo.
 echo   1) git checkout -b 'branchname' master
 echo   2) git push -u origin 'branchname'
 echo.
+echo By convention the branch is named hotfix-YYMMDD
 :End
