@@ -24,15 +24,11 @@ echo ROB:
 call git checkout -b %1 master
 call git push -u origin %1
 
-pause
-
 cd ..\Cofamilies-JS
 echo.
 echo COFAMILIES-JS:
 call git checkout -b %1 master
 call git push -u origin %1
-
-pause
 
 cd ..\Cofamilies
 echo.
@@ -64,5 +60,5 @@ echo.
 echo   1) git checkout -b 'branchname' master
 echo   2) git push -u origin 'branchname'
 echo.
-echo By convention the branch is named hotfix-YYMMDD
+echo By convention the branch is named hotfix-YYYYMMDD
 :End
