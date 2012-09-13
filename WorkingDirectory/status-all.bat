@@ -18,3 +18,4 @@ echo.
 echo Build.Cofamilies...
 cd ..\Build.Cofamilies
 call git status
+cd ..
