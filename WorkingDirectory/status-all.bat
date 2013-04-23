@@ -15,6 +15,7 @@ echo Cofamilies...
 cd ..\Cofamilies
 echo.
 call git status
+echo.
 echo WebApi...
 cd ..\WebApi
 call git status
