@@ -13,6 +13,10 @@ call git status
 echo.
 echo Cofamilies...
 cd ..\Cofamilies
+echo.
+call git status
+echo WebApi...
+cd ..\WebApi
 call git status
 echo.
 echo Build.Cofamilies...

@@ -75,6 +75,10 @@
     <Exec Command="git clone $(GitFlags) git@github.com:rpinna/Rob.git $(MSBuildProjectDirectory)\Export\Rob\" />
     <RemoveDir Directories="$(MSBuildProjectDirectory)\Export\Rob\.git" />
 
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Export\WebApi" />
+    <Exec Command="git clone $(GitFlags) git@github.com:rpinna/WebApi.git $(MSBuildProjectDirectory)\Export\WebApi\" />
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\Export\WebApi\.git" />    
+
     <MakeDir Directories="$(MSBuildProjectDirectory)\Export\Lib" />
     <Exec Command="git clone $(GitFlags) git@github.com:rpinna/Lib.git $(MSBuildProjectDirectory)\Export\Lib\" />
     <RemoveDir Directories="$(MSBuildProjectDirectory)\Export\Lib\.git" />

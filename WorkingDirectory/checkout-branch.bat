@@ -23,6 +23,11 @@ echo.
 echo COFAMILIES:
 call git checkout %1
 
+cd ..\WebApi
+echo.
+echo WebApi:
+call git checkout %1
+
 cd ..\Build.Cofamilies
 echo.
 echo BUILD.COFAMILIES

@@ -36,6 +36,12 @@ echo COFAMILIES:
 call git checkout -b %1 develop
 call git push -u origin %1
 
+cd ..\WebApi
+echo.
+echo WebApi:
+call git checkout -b %1 develop
+call git push -u origin %1
+
 cd ..\Build.Cofamilies
 echo.
 echo BUILD.COFAMILIES
@@ -45,6 +51,7 @@ call git push -u origin %1
 cd ..
 echo.
 echo Done!
+goto End
 
 :NoParameter
 echo.

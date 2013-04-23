@@ -23,6 +23,11 @@ echo.
 echo COFAMILIES:
 call git tag -a %1 -m %2
 
+cd ..\WebApi
+echo.
+echo WebApi:
+call git tag -a %1 -m %2
+
 cd ..\Build.Cofamilies
 echo.
 echo BUILD.COFAMILIES

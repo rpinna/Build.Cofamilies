@@ -40,6 +40,12 @@ echo COFAMILIES:
 call git branch -d %1
 call git push origin :%1
 
+cd ..\WebApi
+echo.
+echo WebApi:
+call git branch -d %1
+call git push origin :%1
+
 cd ..\Build.Cofamilies
 echo.
 echo BUILD.COFAMILIES

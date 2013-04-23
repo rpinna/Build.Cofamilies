@@ -30,6 +30,11 @@ echo.
 echo COFAMILIES:
 call git merge --no-ff %1
 
+cd ..\WebApi
+echo.
+echo WebApi:
+call git merge --no-ff %1
+
 cd ..\Build.Cofamilies
 echo.
 call git merge --no-ff %1

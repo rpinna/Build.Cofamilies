@@ -20,6 +20,11 @@ echo.
 echo COFAMILIES:
 call git push
 
+cd ..\WebApi
+echo.
+echo WebApi:
+call git push
+
 cd ..\Build.Cofamilies
 echo.
 echo BUILD.COFAMILIES
