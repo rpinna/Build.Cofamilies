@@ -39,6 +39,10 @@
   <ItemGroup>
     <ZipFiles Include="Export\Cofamilies\WebApplication\WebUI.Cofamilies\**\*.*" Exclude="*.zip;**\obj\**;**\.svn\**;**\Logfile*.txt" />
   </ItemGroup>
+
+  <ItemGroup>
+    <NotificationServiceBinaries Include="Export\Cofamilies\NotificationService\bin\Release\**\*.*" Exclude="*.zip;**\obj\**;**\.svn\**;**\Logfile*.txt" />
+  </ItemGroup>  
   
   <!-- Targets -->
   
@@ -56,6 +60,7 @@
     <RemoveDir Directories="$(MSBuildProjectDirectory)\Zip" />
     <MakeDir Directories="$(MSBuildProjectDirectory)\Zip" />
     <Zip Files="@(ZipFiles)" WorkingDirectory="Export\Cofamilies\WebApplication\WebUI.Cofamilies\" ZipFileName="$(MSBuildProjectDirectory)\Zip\$(ZipFileName)"/>
+    <Zip Files="@(NotificationServiceBinaries)" WorkingDirectory="Export\Cofamilies\NotificationService\bin\Release\" ZipFileName="$(MSBuildProjectDirectory)\Zip\NotificationService.zip"/>
   </Target>
 
   <Target Name="Upload">
