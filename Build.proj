@@ -37,6 +37,10 @@
   <!-- Items -->
   
   <ItemGroup>
+    <MobileAlertServiceBinaries Include="Export\Cofamilies\MobileAlertService\bin\Release\**\*.*" Exclude="*.zip;**\obj\**;**\.svn\**;**\Logfile*.txt" />
+  </ItemGroup>  
+
+  <ItemGroup>
     <ZipFiles Include="Export\Cofamilies\WebApplication\WebUI.Cofamilies\**\*.*" Exclude="*.zip;**\obj\**;**\.svn\**;**\Logfile*.txt" />
   </ItemGroup>
 
@@ -54,12 +58,25 @@
   <Target Name="Paths">
     <Message Text=" " />
     <Message Text="MSBuild Extensions Path: $(MSBuildExtensionsPath)" />
-  </Target>  
+  </Target>
 
-  <Target Name="Zip">
+  <Target Name="Zip" DependsOnTargets="Zip-Folders;Zip-WebUI;Zip-NotificationService;Zip-MobileAlertService">
+  </Target>
+
+  <Target Name="Zip-Folders">
     <RemoveDir Directories="$(MSBuildProjectDirectory)\Zip" />
     <MakeDir Directories="$(MSBuildProjectDirectory)\Zip" />
+  </Target>
+
+  <Target Name="Zip-WebUI">
     <Zip Files="@(ZipFiles)" WorkingDirectory="Export\Cofamilies\WebApplication\WebUI.Cofamilies\" ZipFileName="$(MSBuildProjectDirectory)\Zip\$(ZipFileName)"/>
+  </Target>
+
+  <Target Name="Zip-MobileAlertService">
+    <Zip Files="@(MobileAlertServiceBinaries)" WorkingDirectory="Export\Cofamilies\MobileAlertService\bin\Release\" ZipFileName="$(MSBuildProjectDirectory)\Zip\MobileAlertService.zip"/>
+  </Target>  
+
+  <Target Name="Zip-NotificationService">
     <Zip Files="@(NotificationServiceBinaries)" WorkingDirectory="Export\Cofamilies\NotificationService\bin\Release\" ZipFileName="$(MSBuildProjectDirectory)\Zip\NotificationService.zip"/>
   </Target>
 
@@ -89,10 +106,20 @@
     <RemoveDir Directories="$(MSBuildProjectDirectory)\Export\Lib\.git" />
   </Target>  
   
-  <Target Name="Release">
+  <Target Name="Release" DependsOnTargets = "Release-WebUI; Release-NotificationService; Release-MobileAlertService" />
+
+  <Target Name="Release-WebUI">
     <MSBuild Projects = "Export\Cofamilies\WebUI.sln" Properties="Configuration=Release" />
   </Target>
   
+  <Target Name="Release-MobileAlertService">
+    <MSBuild Projects = "Export\Cofamilies\MobileAlertService.sln" Properties="Configuration=Release" />
+  </Target>
+
+  <Target Name="Release-NotificationService">
+    <MSBuild Projects = "Export\Cofamilies\NotificationService.sln" Properties="Configuration=Release" />
+  </Target>
+
   <Target Name="Debug">
     <MSBuild Projects = "Export\Cofamilies\WebUI.sln" Properties="Configuration=Debug" />
   </Target>
