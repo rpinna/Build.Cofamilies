@@ -120,11 +120,25 @@
     <MSBuild Projects = "Export\Cofamilies\NotificationService.sln" Properties="Configuration=Release" />
   </Target>
 
+  <Target Name="Restore" DependsOnTargets = "Restore-WebUI; Restore-NotificationService; Restore-MobileAlertService" />
+
+  <Target Name="Restore-MobileAlertService">
+    <Exec Command="Tools\NuGet restore Export\Cofamilies\MobileAlertService.sln" />
+  </Target>
+
+  <Target Name="Restore-NotificationService">
+    <Exec Command="Tools\NuGet restore Export\Cofamilies\NotificationService.sln" />
+  </Target>
+
+  <Target Name="Restore-WebUI">
+    <Exec Command="Tools\NuGet restore Export\Cofamilies\WebUI.sln" />
+  </Target>
+
   <Target Name="Debug">
     <MSBuild Projects = "Export\Cofamilies\WebUI.sln" Properties="Configuration=Debug" />
   </Target>
   
-  <Target Name="BuildRelease" DependsOnTargets = "Export; Release" />
+  <Target Name="BuildRelease" DependsOnTargets = "Export; Restore; Release" />
   <Target Name="BuildAndDeploy" DependsOnTargets="BuildRelease; Deploy" />  
 
 </Project>
