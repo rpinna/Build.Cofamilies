@@ -35,6 +35,10 @@
   </Choose>
 
   <!-- Items -->
+
+  <ItemGroup>
+    <EmailAlertServiceBinaries Include="Export\Cofamilies\CofamiliesEmailAlert.Service\bin\Release\**\*.*" Exclude="*.zip;**\obj\**;**\.svn\**;**\Logfile*.txt" />
+  </ItemGroup>   
   
   <ItemGroup>
     <MobileAlertServiceBinaries Include="Export\Cofamilies\MobileAlertService\bin\Release\**\*.*" Exclude="*.zip;**\obj\**;**\.svn\**;**\Logfile*.txt" />
@@ -60,7 +64,7 @@
     <Message Text="MSBuild Extensions Path: $(MSBuildExtensionsPath)" />
   </Target>
 
-  <Target Name="Zip" DependsOnTargets="Zip-Folders;Zip-WebUI;Zip-NotificationService;Zip-MobileAlertService">
+  <Target Name="Zip" DependsOnTargets="Zip-Folders;Zip-WebUI;Zip-EmailAlertService;Zip-NotificationService;Zip-MobileAlertService">
   </Target>
 
   <Target Name="Zip-Folders">
@@ -71,6 +75,11 @@
   <Target Name="Zip-WebUI">
     <Zip Files="@(ZipFiles)" WorkingDirectory="Export\Cofamilies\WebApplication\WebUI.Cofamilies\" ZipFileName="$(MSBuildProjectDirectory)\Zip\$(ZipFileName)"/>
   </Target>
+
+  <Target Name="Zip-EmailAlertService">
+    <Zip Files="@(EmailAlertServiceBinaries)" WorkingDirectory="Export\Cofamilies\CofamiliesEmailAlert.Service\bin\Release\" ZipFileName="$(MSBuildProjectDirectory)\Zip\EmailAlertService.zip"/>
+  </Target>  
+
 
   <Target Name="Zip-MobileAlertService">
     <Zip Files="@(MobileAlertServiceBinaries)" WorkingDirectory="Export\Cofamilies\MobileAlertService\bin\Release\" ZipFileName="$(MSBuildProjectDirectory)\Zip\MobileAlertService.zip"/>
@@ -106,10 +115,14 @@
     <RemoveDir Directories="$(MSBuildProjectDirectory)\Export\Lib\.git" />
   </Target>  
   
-  <Target Name="Release" DependsOnTargets = "Release-WebUI; Release-NotificationService; Release-MobileAlertService" />
+  <Target Name="Release" DependsOnTargets = "Release-WebUI; Release-EmailAlertService; Release-NotificationService; Release-MobileAlertService" />
 
   <Target Name="Release-WebUI">
     <MSBuild Projects = "Export\Cofamilies\WebUI.sln" Properties="Configuration=Release" />
+  </Target>
+
+  <Target Name="Release-EmailAlertService">
+    <MSBuild Projects = "Export\Cofamilies\CofamiliesEmailAlertService.sln" Properties="Configuration=Release" />
   </Target>
   
   <Target Name="Release-MobileAlertService">
@@ -120,7 +133,11 @@
     <MSBuild Projects = "Export\Cofamilies\NotificationService.sln" Properties="Configuration=Release" />
   </Target>
 
-  <Target Name="Restore" DependsOnTargets = "Restore-WebUI; Restore-NotificationService; Restore-MobileAlertService" />
+  <Target Name="Restore" DependsOnTargets = "Restore-WebUI; Restore-EmailAlertService; Restore-NotificationService; Restore-MobileAlertService" />
+
+  <Target Name="Restore-EmailAlertService">
+    <Exec Command="Tools\NuGet restore Export\Cofamilies\CofamiliesEmailAlertService.sln" />
+  </Target>
 
   <Target Name="Restore-MobileAlertService">
     <Exec Command="Tools\NuGet restore Export\Cofamilies\MobileAlertService.sln" />
