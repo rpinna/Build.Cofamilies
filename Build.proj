@@ -114,7 +114,12 @@
     <Exec Command="git clone $(GitFlags) git@github.com:rpinna/Lib.git $(MSBuildProjectDirectory)\Export\Lib\" />
     <RemoveDir Directories="$(MSBuildProjectDirectory)\Export\Lib\.git" />
   </Target>  
-  
+
+  <!--
+    Refactoring  service so that it sits on top of new service base, bad form but does not currently build  
+  <Target Name="Release" DependsOnTargets = "Release-WebUI; Release-NotificationService; Release-MobileAlertService" />
+  -->
+
   <Target Name="Release" DependsOnTargets = "Release-WebUI; Release-EmailAlertService; Release-NotificationService; Release-MobileAlertService" />
 
   <Target Name="Release-WebUI">
