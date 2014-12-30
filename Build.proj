@@ -127,7 +127,7 @@
   </Target>
 
   <Target Name="Release-EmailAlertService">
-    <MSBuild Projects = "Export\Cofamilies\CofamiliesEmailAlertService.sln" Properties="Configuration=Release" />
+    <MSBuild Projects = "Export\Cofamilies\EmailAlertService.sln" Properties="Configuration=Release" />
   </Target>
   
   <Target Name="Release-MobileAlertService">
@@ -141,7 +141,7 @@
   <Target Name="Restore" DependsOnTargets = "Restore-WebUI; Restore-EmailAlertService; Restore-NotificationService; Restore-MobileAlertService" />
 
   <Target Name="Restore-EmailAlertService">
-    <Exec Command="Tools\NuGet restore Export\Cofamilies\CofamiliesEmailAlertService.sln" />
+    <Exec Command="Tools\NuGet restore Export\Cofamilies\EmailAlertService.sln" />
   </Target>
 
   <Target Name="Restore-MobileAlertService">
